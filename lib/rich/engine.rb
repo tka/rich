@@ -13,6 +13,8 @@ module Rich
               ckeditor/*.gif
               ckeditor/*.html
               ckeditor/*.md
+              rich/*.css
+              rich/*.js
       )
       app.middleware.use 'Rack::RawUpload', :paths => ['/rich/files']
     end
