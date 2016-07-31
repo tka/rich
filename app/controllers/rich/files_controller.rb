@@ -67,11 +67,20 @@ module Rich
       end
 
       if @file.save
-        response = { :success => true, :rich_id => @file.id }
+        response = { :success  => true,
+                     :rich_id  => @file.id,
+                     :uploaded => 1,
+                     :fileName => @file.rich_file_file_name,
+                     :url      => @file.rich_file.url
+        }
       else
-        response = { :success => false,
-                     :error => "Could not upload your file:\n- "+@file.errors.to_a[-1].to_s,
-                     :params => params.inspect }
+        response = { :success  => false,
+                     :error    => {
+                      :message => "Could not upload your file:\n- "+@file.errors.to_a[-1].to_s,
+                     },
+                     :params   => params.inspect,
+                     :uploaded => 0
+        }
       end
 
       render :json => response, :content_type => "text/html"
